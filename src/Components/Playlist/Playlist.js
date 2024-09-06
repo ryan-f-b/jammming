@@ -3,6 +3,9 @@ import styles from "./Playlist.module.css";
 import TrackList from '../TrackList/TrackList.js';
 
 function Playlist(props) {
+
+  // Function to handle playlist name change by setting the playlistName value to whatever is typed 
+  // into the input form.
   const handleNameChange = (event) => {
     props.onNameChange(event.target.value);
   }
