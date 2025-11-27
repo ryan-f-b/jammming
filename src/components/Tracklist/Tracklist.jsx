@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Tracklist = (props) => {
-
+const Tracklist = () => {
+  
 }
 
 export default Tracklist;
