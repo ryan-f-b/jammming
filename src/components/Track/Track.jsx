@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Track = () => {
-  let inPlaylist = true;
-
+const Track = ({ track }) => {
   return (
     <>
-      {inPlaylist ? <button>-</button> : <button>+</button>}
+      <h3>{track.name}</h3>
+      <p>{track.artist} | {track.album}</p>
+      <button>Add Track</button>
     </>
   )
 }

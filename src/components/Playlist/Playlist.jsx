@@ -1,4 +1,5 @@
 import React from 'react';
+import Tracklist from '../Tracklist/Tracklist.jsx';
 
 const Playlist = () => {
   return (
