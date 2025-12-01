@@ -19,6 +19,12 @@ const App = () => {
       artist: 'Daft Punk',
       album: 'Random Access Memories',
     },
+    {
+      id: 3,
+      name: 'Mamma Mia',
+      artist: 'ABBA',
+      album: 'ABBA Gold',
+    }
   ])
 
   const [playlistName, setPlaylistName] = useState('My Playlist');
@@ -29,31 +35,28 @@ const App = () => {
   };
 
   const addTrack = (track) => {
-    setPlaylistTracks((prevTracks) => {
-      if (!prevTracks.includes(track)) {
-        [...prevTracks,
-        {
-          id: track.id,
-          name: track.name,
-          artist: track.artist,
-          album: track.album,
-        }]
-      }
-    })
+    if (!playlistTracks.find(t => t.id === track.id)) {
+      setPlaylistTracks(prev => [...prev, track]);
+    }
   };
 
   const removeTrack = (trackId) => {
-    setPlaylistTracks((prevTracks) => {
-      prevTracks.filter((track) => track.id != trackId);
-    })
+    setPlaylistTracks(prevTracks => prevTracks.filter(track => track.id != trackId));
   };
+
+  //ANNOTATE EVERYTHING TO SHOW UNDERSTANDING
 
   return (
     <>
       <h1>Jammming</h1>
       <SearchBar />
       <SearchResults results={searchResults} onAdd={addTrack} />
-      <Playlist playlistName={playlistName} playlistTracks={playlistTracks} onNameChange={updatePlaylistName} onRemove={removeTrack} />
+      <Playlist 
+        playlistName={playlistName} 
+        playlistTracks={playlistTracks} 
+        onNameChange={updatePlaylistName} 
+        onRemove={removeTrack} 
+      />
     </>
   )
 }
