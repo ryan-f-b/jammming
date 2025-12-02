@@ -1,6 +1,7 @@
 import React from 'react';
 import Track from '../Track/Track.jsx';
 
+//Creating a Tracklist component with props passed down from SearchResults.jsx and Playlist.jsx
 const Tracklist = ({ tracks, onRemove, onAdd, isRemoval }) => {
 
   return (

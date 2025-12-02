@@ -1,6 +1,7 @@
 import React from 'react';
 import Tracklist from '../Tracklist/Tracklist.jsx';
 
+// Creating the SearchReslts component using the results and onAdd props passed down from App.jsx
 const SearchResults = ({ results, onAdd }) => {
   return (
     <>
