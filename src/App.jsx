@@ -2,32 +2,13 @@ import React, { useState } from 'react';
 import SearchBar from './components/SearchBar/SearchBar.jsx';
 import SearchResults from './components/SearchResults/SearchResults.jsx';
 import Playlist from './components/Playlist/Playlist.jsx';
+import Spotify from './Spotify.js';
 import styles from './App.module.css';
-
 
 const App = () => {
 
   //Initialising state for the user search results. I have hard-coded some tracks to begin with.
-  const [searchResults, setSearchResults] = useState([
-    {
-      id: 1,
-      name: 'Midnight City',
-      artist: 'M83',
-      album: 'Hurry Up, Were Dreaming',
-    },
-    {
-      id: 2,
-      name: 'Instant Crush',
-      artist: 'Daft Punk',
-      album: 'Random Access Memories',
-    },
-    {
-      id: 3,
-      name: 'Mamma Mia',
-      artist: 'ABBA',
-      album: 'ABBA Gold',
-    }
-  ])
+  const [searchResults, setSearchResults] = useState([])
 
   //Initialising state for the playlist name and playlist tracks. Default playlist name has been set to 'My Playlist'. 
   const [playlistName, setPlaylistName] = useState('My Playlist');
@@ -50,16 +31,21 @@ const App = () => {
     setPlaylistTracks(prevTracks => prevTracks.filter(track => track.id != trackId));
   };
 
+  const search = async (term) => {
+    const results = await Spotify.search(term);
+    setSearchResults(results);
+  }
+
   return (
     <>
       <h1>Jammming</h1>
-      <SearchBar />
+      <SearchBar onSearch={search} />
       <SearchResults results={searchResults} onAdd={addTrack} />
       <Playlist 
-        playlistName={playlistName} 
-        playlistTracks={playlistTracks} 
-        onNameChange={updatePlaylistName} 
-        onRemove={removeTrack} 
+          playlistName={playlistName} 
+          playlistTracks={playlistTracks} 
+          onNameChange={updatePlaylistName} 
+          onRemove={removeTrack} 
       />
     </>
   )

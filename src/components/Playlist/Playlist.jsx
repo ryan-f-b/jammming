@@ -1,5 +1,6 @@
 import React from 'react';
 import Tracklist from '../Tracklist/Tracklist.jsx';
+import Spotify from '../../Spotify.js';
 
 //Creating a Playlist component using props passed down from App.jsx
 const Playlist = ({ playlistName, playlistTracks, onNameChange, onRemove }) => {
@@ -9,17 +10,36 @@ const Playlist = ({ playlistName, playlistTracks, onNameChange, onRemove }) => {
     onNameChange(e.target.value);
   }
 
+  //Creating a function to handle saving a user's created playlist to Spotify
+  const handleSave = async () => {
+    const trackUris = playlistTracks.map((track) => track.uri);
+
+    if (!playlistName || trackUris.length === 0) {
+      alert("Please add tracks and choose a playlist name.");
+      return;
+    }
+
+    try {
+      await Spotify.savePlaylistToSpotify(playlistName, trackUris);
+      alert("Playlist saved to Spotify!");
+      
+    } catch (error) {
+      console.error("Error saving playlist:", error);
+      alert("Failed to save playlist. Check console for details.");
+    }
+  };
+
   return (
     <>
       <h2>{playlistName}</h2>
       <form>
-          <label for='playlistName'>Rename Playlist: </label>
-          <input type='text' id='playlistName' onChange={handleNameChange} value={playlistName}></input>
+          <label htmlFor='playlistName'>Rename Playlist: </label>
+          <input type='text' id='playlistName' onChange={handleNameChange} value={playlistName} maxLength={30}></input>
       </form>
 
       <Tracklist tracks={playlistTracks} isRemoval={true} onRemove={onRemove}/>
 
-      <button>Save to Spotify</button>
+      <button onClick={handleSave}>Save to Spotify</button>
     </>
   )
 }
