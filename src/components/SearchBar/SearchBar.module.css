@@ -1,0 +1,13 @@
+.SearchBar {
+  display: flex;
+  justify-content: center;   /* centers horizontally */
+  align-items: center;        /* centers vertically if needed */
+  gap: 10px;                  /* space between input & button */
+  width: 100%;                /* ensures full width */
+  margin: 20px 0;             /* spacing around */
+}
+
+.SearchBar input {
+  width: 250px;
+  height: 20px;
+}

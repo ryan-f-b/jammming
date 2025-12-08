@@ -109,25 +109,30 @@ const Spotify = {
     },
 
     async getAccessToken() {
-        if (accessToken) return accessToken;
+        // 1. If we already have a token, try using it
+        if (accessToken) {
+            return accessToken;
+        }
 
+        // 2. If URL contains ?code=..., exchange it for tokens
         const params = new URLSearchParams(window.location.search);
         const code = params.get("code");
 
         if (code) {
             const token = await this.getTokenFromCode(code);
             if (token) {
-                window.history.replaceState({}, document.title, "/"); // clear code from URL
+                window.history.replaceState({}, document.title, "/");
                 return token;
             }
         }
 
+        // 3. Try refreshing the token
         const refreshed = await refreshAccessToken();
         if (refreshed) {
             return refreshed;
         }
 
-        // If no token and no code, redirect to Spotify login
+        // 4. No tokens available — redirect to Spotify login
         await this.redirectToAuth();
     },
 

@@ -1,0 +1,13 @@
+.Playlist {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.Playlist h2 {
+  text-align: center;
+}
+
+.Playlist button {
+  background-color: #252323
+}

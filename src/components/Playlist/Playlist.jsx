@@ -1,6 +1,7 @@
 import React from 'react';
 import Tracklist from '../Tracklist/Tracklist.jsx';
 import Spotify from '../../Spotify.js';
+import styles from './Playlist.module.css';
 
 //Creating a Playlist component using props passed down from App.jsx
 const Playlist = ({ playlistName, playlistTracks, onNameChange, onRemove }) => {
@@ -30,17 +31,12 @@ const Playlist = ({ playlistName, playlistTracks, onNameChange, onRemove }) => {
   };
 
   return (
-    <>
+    <div className={styles.Playlist}>
       <h2>{playlistName}</h2>
-      <form>
-          <label htmlFor='playlistName'>Rename Playlist: </label>
-          <input type='text' id='playlistName' onChange={handleNameChange} value={playlistName} maxLength={30}></input>
-      </form>
-
+      <input type='text' id='playlistName' onChange={handleNameChange} value={playlistName} placeholder='Playlist Name' maxLength={30}></input>
       <Tracklist tracks={playlistTracks} isRemoval={true} onRemove={onRemove}/>
-
       <button onClick={handleSave}>Save to Spotify</button>
-    </>
+    </div>
   )
 }
 

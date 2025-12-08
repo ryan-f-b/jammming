@@ -39,14 +39,17 @@ const App = () => {
   return (
     <>
       <h1>Jammming</h1>
+      <h3>Spotify Playlist Creator</h3>
       <SearchBar onSearch={search} />
-      <SearchResults results={searchResults} onAdd={addTrack} />
-      <Playlist 
-          playlistName={playlistName} 
-          playlistTracks={playlistTracks} 
-          onNameChange={updatePlaylistName} 
-          onRemove={removeTrack} 
-      />
+      <div className={styles.container}>
+        <SearchResults results={searchResults} onAdd={addTrack} />
+        <Playlist 
+            playlistName={playlistName} 
+            playlistTracks={playlistTracks} 
+            onNameChange={updatePlaylistName} 
+            onRemove={removeTrack} 
+        />
+      </div>
     </>
   )
 }

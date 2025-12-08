@@ -1,0 +1,10 @@
+.SearchResults {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.SearchResults h2 {
+  text-align: center;
+}

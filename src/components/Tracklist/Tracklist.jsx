@@ -1,12 +1,13 @@
 import React from 'react';
 import Track from '../Track/Track.jsx';
+import styles from './Tracklist.module.css';
 
 //Creating a Tracklist component with props passed down from SearchResults.jsx and Playlist.jsx
 const Tracklist = ({ tracks, onRemove, onAdd, isRemoval }) => {
 
   return (
-    <>
-      {tracks.map((track) => (
+    <div className={styles.Tracklist}>
+      {tracks.map(track => (
         <Track 
           key={track.id} 
           track={track} 
@@ -15,7 +16,7 @@ const Tracklist = ({ tracks, onRemove, onAdd, isRemoval }) => {
           isRemoval={isRemoval}
         />
       ))}
-    </>
+    </div>
   )
 }
 
