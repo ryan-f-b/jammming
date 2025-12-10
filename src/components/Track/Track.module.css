@@ -16,6 +16,8 @@
 .TrackInformation {
   display: flex;
   flex-direction: column;
+  text-align: left;
+  flex: 1;
 }
 
 .TrackInformation h3 {
@@ -28,6 +30,7 @@
   margin: 4px 0 0;
   color: #b3b3b3;
   font-size: 0.9rem;
+  text-align: left;
 }
 
 .AlbumArt {
