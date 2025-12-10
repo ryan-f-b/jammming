@@ -24,6 +24,7 @@ https://jammmingrb.netlify.app/
 
 ## Project Structure
 
+```
 src/
 ├── assets/
 ├── components/
@@ -37,13 +38,18 @@ src/
 ├── index.css
 ├── index.jsx
 ├── Spotify.js
+```
 
 Build & config files:
 
 index.html
+
 vite.config.js
+
 package.json
+
 .eslint.config.js
+
 README.md
 
 ---
