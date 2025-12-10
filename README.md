@@ -16,6 +16,38 @@ Jammming is a React web application that allows users to search for songs on Spo
 
 ---
 
+## Live Demo Netlify
+
+https://jammmingrb.netlify.app/
+
+---
+
+## Project Structure
+
+src/
+├── assets/
+├── components/
+│ ├── Playlist/
+│ ├── SearchBar/
+│ ├── SearchResults/
+│ ├── Track/
+│ └── Tracklist/
+├── App.jsx
+├── App.module.css
+├── index.css
+├── index.jsx
+├── Spotify.js
+
+Build & config files:
+
+index.html
+vite.config.js
+package.json
+.eslint.config.js
+README.md
+
+---
+
 ## Installation & Setup
 
 1. **Clone the repository**  
@@ -48,7 +80,6 @@ Jammming is a React web application that allows users to search for songs on Spo
    - Add tracks from the search results.
    - Enter a playlist name.
    - Click “Save to Spotify” to create the playlist in your Spotify account.
-   - Feedback messages show progress or errors (e.g., missing name or tracks).
 
 4. **Managing Tracks**  
    - Tracks can be removed using the “-” button.
@@ -56,34 +87,31 @@ Jammming is a React web application that allows users to search for songs on Spo
 
 ---
 
-## Usage
+## Component Overview
 
-1. **Search for a track**  
-    - Type an artist, track, or album into the search bar.
-    - Press Enter or click Search.
-
-2. **Add tracks to your playlist**  
-    - Click the `+` icon next to a track in the search results.
-
-3. **Remove tracks from your playlist**  
-    - Click the `-` icon next to a track in your playlist.
-
-4. **Rename your playlist**  
-    - Click on the playlist name and type a new name.
-
-5. **Save playlist to Spotify**  
-    - Click the **Save to Spotify** button.
-    - The app will show a message when the save is complete.
+- **SearchBar** — Search input + button  
+- **SearchResults** — Displays list of search results  
+- **Tracklist** — Reusable list container  
+- **Track** — Displays track info, album art, and buttons  
+- **Playlist** — Editable playlist + track list  
 
 ---
 
 ## Technologies Used
 
-- React.js
+### Frontend
+- React (Functional Components + Hooks)
 - Vite
-- JavaScript (ES6+)
-- Spotify Web API (Authorization Code with PKCE)
+- CSS Modules
+
+### Spotify Integration
+- Spotify Web API
+- OAuth 2.0 PKCE Flow
 - Fetch API
+
+### Other
+- LocalStorage for token persistence
+- Netlify Deployment
 
 ---
 
@@ -100,4 +128,4 @@ If you want to contribute to Jammming:
 
 ## License
 
-This project is open-source and available under the MIT License.
+This project is for educational use and follows Spotify API’s terms.
