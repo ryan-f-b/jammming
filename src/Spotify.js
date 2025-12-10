@@ -168,7 +168,7 @@ const Spotify = {
             artist: track.artists[0].name, 
             album: track.album.name, 
             uri: track.uri, 
-            image: track.album.imagees[0]?.url,
+            image: track.album.images[0]?.url,
         }));
     }, 
 
