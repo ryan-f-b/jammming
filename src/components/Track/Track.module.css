@@ -29,3 +29,11 @@
   color: #b3b3b3;
   font-size: 0.9rem;
 }
+
+.AlbumArt {
+  width: 50px;         /* size of image */
+  height: 50px;
+  border-radius: 4px;  /* Spotify-style rounded corners */
+  object-fit: cover;   /* keeps image from stretching */
+  margin-right: 12px;
+}
