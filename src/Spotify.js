@@ -56,7 +56,7 @@ async function refreshAccessToken() {
 const Spotify = {
     async redirectToAuth() {
         const clientId = "c058f286c1a24a4eba5891acd176cf68";
-        const redirectUri = "https://jammmingrb.netlify.app";
+        const redirectUri = "https://jammmingrb.netlify.app/";
         const scopes = "playlist-modify-public playlist-modify-private user-read-email";
 
         const codeVerifier = generateCodeVerifier();
@@ -79,7 +79,7 @@ const Spotify = {
     async getTokenFromCode(code) {
         const codeVerifier = localStorage.getItem("spotify_code_verifier");
         const clientId = "c058f286c1a24a4eba5891acd176cf68";
-        const redirectUri = "https://jammmingrb.netlify.app";
+        const redirectUri = "https://jammmingrb.netlify.app/";
 
         const body = new URLSearchParams({
             client_id: clientId,
