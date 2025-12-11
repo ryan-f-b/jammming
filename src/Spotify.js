@@ -1,5 +1,4 @@
 let accessToken = localStorage.getItem("spotify_access_token") || '';
-let expiresIn = 0;
 
 // PKCE Helper Functions
 function generateCodeVerifier(length = 128) {
@@ -22,35 +21,39 @@ async function generateCodeChallenge(codeVerifier) {
 // Refreshes the access token
 async function refreshAccessToken() {
     const refreshToken = localStorage.getItem("refresh_token");
-    if (!refreshToken) {
-        return null;
-    }
+    if (!refreshToken) return null;
 
     const clientId = "c058f286c1a24a4eba5891acd176cf68";
+
     const body = new URLSearchParams({
-        grant_type: "refresh_token", 
-        refresh_token: refreshToken, 
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
         client_id: clientId
     });
 
     const response = await fetch("https://accounts.spotify.com/api/token", {
-        method: "POST", 
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        }, 
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: body.toString()
     });
 
     if (!response.ok) {
-        console.error("Failed to refresh access token")
+        console.error("Failed to refresh access token");
         return null;
     }
 
     const data = await response.json();
+
     accessToken = data.access_token;
     localStorage.setItem("spotify_access_token", accessToken);
-    return data.access_token;
+
+    // SAVE EXPIRY TIME
+    const expiresAt = Date.now() + data.expires_in * 1000;
+    localStorage.setItem("spotify_expires_at", expiresAt);
+
+    return accessToken;
 }
+
 
 // Spotify Module
 const Spotify = {
@@ -99,42 +102,50 @@ const Spotify = {
 
         if (data.access_token) {
             accessToken = data.access_token;
-            localStorage.setItem("refresh_token", data.refresh_token);
+
+            // SAVE TOKEN + REFRESH + EXPIRY
             localStorage.setItem("spotify_access_token", accessToken);
-            expiresIn = data.expires_in;
+            localStorage.setItem("refresh_token", data.refresh_token);
+
+            const expiresAt = Date.now() + data.expires_in * 1000;
+            localStorage.setItem("spotify_expires_at", expiresAt);
+
             return accessToken;
-        } else {
-            return null;
         }
+
+        return null;
     },
 
     async getAccessToken() {
-        // 1. If we already have a token, try using it
-        if (accessToken) {
+        const storedToken = localStorage.getItem("spotify_access_token");
+        const expiresAt = Number(localStorage.getItem("spotify_expires_at"));
+
+        // 1. Stored token and still valid?
+        if (storedToken && expiresAt && Date.now() < expiresAt) {
+            accessToken = storedToken;
             return accessToken;
         }
 
-        // 2. If URL contains ?code=..., exchange it for tokens
+        // 2. Token expired → refresh
+        const refreshed = await refreshAccessToken();
+        if (refreshed) return refreshed;
+
+        // 3. Check URL for ?code=
         const params = new URLSearchParams(window.location.search);
         const code = params.get("code");
 
         if (code) {
-            const token = await this.getTokenFromCode(code);
-            if (token) {
+            const newToken = await this.getTokenFromCode(code); // FIXED
+            if (newToken) {
                 window.history.replaceState({}, document.title, "/");
-                return token;
+                return newToken;
             }
         }
 
-        // 3. Try refreshing the token
-        const refreshed = await refreshAccessToken();
-        if (refreshed) {
-            return refreshed;
-        }
-
-        // 4. No tokens available — redirect to Spotify login
+        // 4. No tokens → redirect to Spotify login
         await this.redirectToAuth();
     },
+
 
     async search(term) {
         let token = await this.getAccessToken();
