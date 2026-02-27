@@ -4,7 +4,7 @@ import Spotify from '../../Spotify.js';
 import styles from './Playlist.module.css';
 
 //Creating a Playlist component using props passed down from App.jsx
-const Playlist = ({ playlistName, playlistTracks, onNameChange, onRemove }) => {
+const Playlist = ({ playlistName, setPlaylistName, playlistTracks, setPlaylistTracks, onNameChange, onRemove }) => {
 
   //Creating a function to handle changing the playlist name. The function using the onNameChange prop passed from App.jsx to update the playlist name to whatever has been typed into the input field (e.target.value)
   const handleNameChange = (e) => {
@@ -23,6 +23,8 @@ const Playlist = ({ playlistName, playlistTracks, onNameChange, onRemove }) => {
     try {
       await Spotify.savePlaylistToSpotify(playlistName, trackUris);
       alert("Playlist saved to Spotify!");
+      setPlaylistName('');
+      setPlaylistTracks([]);
       
     } catch (error) {
       console.error("Error saving playlist:", error);

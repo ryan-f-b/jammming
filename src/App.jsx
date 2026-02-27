@@ -45,7 +45,9 @@ const App = () => {
         <SearchResults results={searchResults} onAdd={addTrack} />
         <Playlist 
             playlistName={playlistName} 
+            setPlaylistName={setPlaylistName}
             playlistTracks={playlistTracks} 
+            setPlaylistTracks={setPlaylistTracks}
             onNameChange={updatePlaylistName} 
             onRemove={removeTrack} 
         />
